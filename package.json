@@ -2,5 +2,12 @@
   "name": "todos",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.2.0"
+  },
+  "description": "todos on the JAMstack",
+  "repository": "git@github.com:david-mateogit/jamstack-todo.git",
+  "author": "david-mateogit <davidmateo@outlook.com>"
 }
