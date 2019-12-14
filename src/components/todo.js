@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import styles from './todo.module.css';
 
@@ -12,8 +13,17 @@ const Todo = ({ todo, reloadTodos }) => {
       })
       .then(reloadTodos);
   };
+
+  const handleDelete = () => {
+    axios
+      .post('/api/delete-todo', {
+        id: todo._id,
+      })
+      .then(reloadTodos);
+  };
   return (
     <>
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label htmlFor={`todo-toggle-${todo._id}`} className={styles.label}>
         Mark Complete
       </label>
@@ -25,12 +35,26 @@ const Todo = ({ todo, reloadTodos }) => {
         onChange={toggleCompleted}
         className={styles.toggle}
       />
-
       <p className={`${styles.text} ${todo.completed && styles.completed}`}>
         {todo.text}
       </p>
+
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label htmlFor={`todo-delete-${todo._id}`} className={styles.label}>
+        delete
+      </label>
+      <button type="button" onClick={handleDelete} className={styles.delete}>
+        <span role="img" aria-label="delete" title="delete this todo">
+          ❌
+        </span>
+      </button>
     </>
   );
+};
+
+Todo.propTypes = {
+  todo: PropTypes.object.isRequired,
+  reloadTodos: PropTypes.func.isRequired,
 };
 
 export default Todo;

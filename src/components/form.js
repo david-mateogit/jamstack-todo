@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import styles from './form.module.css';
 
@@ -7,9 +8,7 @@ const Form = ({ reloadTodos }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
-    if (text === '') return;
-
+    if (text.trim() === '') return;
     await axios.post('/api/create-todo', { text });
     setText('');
     reloadTodos();
@@ -25,6 +24,7 @@ const Form = ({ reloadTodos }) => {
           className={styles.input}
           value={text}
           onChange={event => setText(event.target.value)}
+          autoComplete="off"
         />
       </label>
       <button type="button" className={styles.button}>
@@ -34,4 +34,7 @@ const Form = ({ reloadTodos }) => {
   );
 };
 
+Form.propTypes = {
+  reloadTodos: PropTypes.func.isRequired,
+};
 export default Form;
